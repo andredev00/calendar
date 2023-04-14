@@ -78,18 +78,10 @@ $(document).ready(function () {
     },
 
     eventClick: function (event) {
-      if (confirm("Are you sure you want to remove it?")) {
-        var id = event.id;
-        $.ajax({
-          url: "delete.php",
-          type: "POST",
-          data: { id: id },
-          success: function () {
-            calendar.fullCalendar("refetchEvents");
-            alert("Event Removed");
-          },
-        });
-      }
+      $("#title").html(event.title);
+      $("#modalWhen").text(event.start_event);
+      $("#eventID").val(event.id);
+      $("#calendarModal").modal();
     },
 
     eventRender: function (eventObj, $el) {
@@ -107,3 +99,18 @@ $(document).ready(function () {
     },
   });
 });
+
+function teste() {
+  if (confirm("Are you sure you want to remove it?")) {
+    var id = event.id;
+    $.ajax({
+      url: "delete.php",
+      type: "POST",
+      data: { id: id },
+      success: function () {
+        calendar.fullCalendar("refetchEvents");
+        alert("Event Removed");
+      },
+    });
+  }
+}

@@ -58,5 +58,24 @@
         </div>
       </div>
     </div> -->
+    <div id="calendarModal" class="modal fade">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Detalhes da consulta</h4>
+        </div>
+        <div id="modalBody" class="modal-body">
+        <h4 id="title" class="modal-title"></h4>
+        <div id="modalWhen" style="margin-top:5px;"></div>
+        </div>
+        <input id="eventID"/>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <button onclick="teste()"type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
+        </div>
+    </div>
+</div>
+</div>
   </body>
 </html>
