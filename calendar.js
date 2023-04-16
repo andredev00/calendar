@@ -121,27 +121,25 @@ function deleteAppointment() {
 }
 
 function saveAppointment() {
-  var title = document.getElementById("tipoConsulta").value;
-  var start = document.getElementById("comecoConsulta").value;
-  var end = document.getElementById("fimConsulta").value;
+  var nomePaciente = document.getElementById("nomePaciente").value;
+  var start = moment(document.getElementById("dataConsulta").value, "YYYY-MM-DD HH:mm:ss").format(
+    "YYYY-MM-DD HH:mm:ss"
+  );
+  //var end = document.getElementById("fimConsulta").value;
   var nTelemovel = document.getElementById("nTelemovel").value;
   var content = document.getElementById("descricao").value;
-  var nomePaciente = document.getElementById("nomePaciente").value;
-
-  $.ajax({
-    url: "insert.php",
-    type: "POST",
-    data: {
-      title: title,
-      start: start,
-      end: end,
-      nTelemovel: nTelemovel,
-      content: content,
-      nomePaciente: nomePaciente,
-    },
-    success: function () {
-      alert("Consulta marcada com sucesso");
-      window.location.reload();
-    },
-  });
+   $.ajax({
+     url: "insert.php",
+     type: "POST",
+     data: {
+       start: start,
+       nTelemovel: nTelemovel,
+       content: content,
+       nomePaciente: nomePaciente,
+     },
+     success: function () {
+       alert("Consulta marcada com sucesso");
+       window.location.reload();
+     },
+   });
 }
