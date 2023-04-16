@@ -10,34 +10,37 @@ $(document).ready(function () {
     selectable: true,
     selectHelper: true,
     select: function (start, end, allDay) {
-      var title = prompt("Enter Event Title");
-      start = prompt("Introduza a data de começo da consulta:");
-      end = prompt("Introduza a data de fim da consulta:");
-      var nTelemovel = prompt("Introduza o numero de telemovel do paciente:");
-      var content = prompt("Adicione uma breve descrição sobre a consulta:");
-      if (title) {
-        var start = moment(start, "YYYY-MM-DD HH:mm:ss").format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
-        var end = moment(end, "YYYY-MM-DD HH:mm:ss").format(
-          "YYYY-MM-DD HH:mm:ss"
-        );
-        $.ajax({
-          url: "insert.php",
-          type: "POST",
-          data: {
-            title: title,
-            start: start,
-            end: end,
-            nTelemovel: nTelemovel,
-            content: content,
-          },
-          success: function () {
-            calendar.fullCalendar("refetchEvents");
-            alert("Added Successfully");
-          },
-        });
-      }
+      $("#successModal").modal();
+      // var title = prompt("Enter Event Title");
+      // start = prompt("Introduza a data de começo da consulta:");
+      // end = prompt("Introduza a data de fim da consulta:");
+      // var nTelemovel = prompt("Introduza o numero de telemovel do paciente:");
+      // var content = prompt("Adicione uma breve descrição sobre a consulta:");
+      // var nomePaciente = prompt("Escreva o nome do paciente");
+      // if (title) {
+      //   var start = moment(start, "YYYY-MM-DD HH:mm:ss").format(
+      //     "YYYY-MM-DD HH:mm:ss"
+      //   );
+      //   var end = moment(end, "YYYY-MM-DD HH:mm:ss").format(
+      //     "YYYY-MM-DD HH:mm:ss"
+      //   );
+      // $.ajax({
+      //   url: "insert.php",
+      //   type: "POST",
+      //   data: {
+      //     title: title,
+      //     start: start,
+      //     end: end,
+      //     nTelemovel: nTelemovel,
+      //     content: content,
+      //     nomePaciente: nomePaciente,
+      //   },
+      //   success: function () {
+      //     calendar.fullCalendar("refetchEvents");
+      //     alert("Added Successfully");
+      //   },
+      // });
+      // }
     },
     editable: true,
     eventResize: function (event) {
@@ -78,7 +81,9 @@ $(document).ready(function () {
     },
 
     eventClick: function (event) {
-      $("#title").html(event.title);
+      $("#nomePaciente").html(event.nomePaciente);
+      $("#descricao").html(event.descricao);
+      $("#nTelemovel").html(event.telemovel);
       $("#modalWhen").text(event.start_event);
       $("#eventID").val(event.id);
       $("#calendarModal").modal();
@@ -100,17 +105,43 @@ $(document).ready(function () {
   });
 });
 
-function teste() {
+function deleteAppointment() {
   if (confirm("Are you sure you want to remove it?")) {
-    var id = event.id;
+    var id = document.getElementById("eventID").value;
     $.ajax({
       url: "delete.php",
       type: "POST",
       data: { id: id },
       success: function () {
-        calendar.fullCalendar("refetchEvents");
         alert("Event Removed");
+        window.location.reload();
       },
     });
   }
+}
+
+function saveAppointment() {
+  var title = document.getElementById("tipoConsulta").value;
+  var start = document.getElementById("comecoConsulta").value;
+  var end = document.getElementById("fimConsulta").value;
+  var nTelemovel = document.getElementById("nTelemovel").value;
+  var content = document.getElementById("descricao").value;
+  var nomePaciente = document.getElementById("nomePaciente").value;
+
+  $.ajax({
+    url: "insert.php",
+    type: "POST",
+    data: {
+      title: title,
+      start: start,
+      end: end,
+      nTelemovel: nTelemovel,
+      content: content,
+      nomePaciente: nomePaciente,
+    },
+    success: function () {
+      alert("Consulta marcada com sucesso");
+      window.location.reload();
+    },
+  });
 }

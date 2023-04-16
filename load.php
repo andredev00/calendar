@@ -22,7 +22,8 @@ foreach($result as $row)
   'start'   => $row["start_event"],
   'end'   => $row["end_event"],
   'telemovel' => $row["telemovel"],
-  'descricao' => $row["descricao"]
+  'descricao' => $row["descricao"],
+  'nomePaciente' => $row["nomePaciente"]
  );
 }
 
